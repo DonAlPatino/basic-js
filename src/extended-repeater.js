@@ -15,10 +15,24 @@ const { NotImplementedError } = require('../extensions/index.js');
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(/* str, options */) {
-  throw new NotImplementedError('Not implemented');
+function repeater(str, {repeatTimes, separator = "+",addition="",additionRepeatTimes=1,additionSeparator="|"}) {
+  //throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
+  if (!repeatTimes) return str+addition;
+  let add_str = ''
+  let newstr = ''
+  for (let i=0;i<parseInt(additionRepeatTimes);i++)
+    add_str += (i==0?"":additionSeparator)+addition
+  console.log(add_str)
+  for (let i=0;i< parseInt(repeatTimes);i++)
+    newstr += (i==0?"":separator) + str  + add_str
+  return newstr
 }
+const objWithSpecificCoercion = {
+  [Symbol.toPrimitive]: hint => hint !== 'number' ? 'STRING_OR_DEFAULT' : 'NUMBER'
+};
+
+console.log(repeater(objWithSpecificCoercion, { repeatTimes: 2, addition: objWithSpecificCoercion }))
 
 module.exports = {
   repeater
