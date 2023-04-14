@@ -20,12 +20,12 @@ const chainMaker = {
 
 
     getLength() {
-        //throw new NotImplementedError('Not implemented');
+        throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
         return len;
     },
     addLink(value = " ") {
-        //throw new NotImplementedError('Not implemented');
+        throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
         let newNode = new Node(value)
 
@@ -40,7 +40,7 @@ const chainMaker = {
         return this
     },
     removeLink(position) {
-        //throw new NotImplementedError('Not implemented');
+        throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
         if (typeof position !== 'number' || position < 1 || position > len) throw new Error("You can\'t remove incorrect link!")
         //удаляем первую позицию
@@ -73,7 +73,7 @@ const chainMaker = {
         return this;
     },
     reverseChain() {
-        //throw new NotImplementedError('Not implemented');
+        throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
         if (len === 1) return this
         let node = head;
@@ -91,7 +91,7 @@ const chainMaker = {
 
     },
     finishChain() {
-        //throw new NotImplementedError('Not implemented');
+        throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
         let plainChain = "";
         //throw new NotImplementedError('Not implemented');
@@ -106,15 +106,7 @@ const chainMaker = {
     }
 
 };
-//chainMaker.addLink(1).addLink(2).addLink(3).removeLink(0),
-//chainMaker.addLink(1).addLink(2).addLink(3).removeLink('2nd'),
-//chainMaker.addLink(1).addLink(2).addLink(3).removeLink(-2),
-//chainMaker.addLink(1).addLink(2).addLink(3).removeLink(4)
-//i =chainMaker.addLink(function () { }).addLink('2nd').addLink('3rd').removeLink(2).reverseChain().finishChain()
-//console.log(i)
 
-i = chainMaker.addLink(1).addLink(2).addLink(3).removeLink(4)
-console.log(i)
 module.exports = {
     chainMaker
 };
