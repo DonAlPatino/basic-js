@@ -12,73 +12,76 @@ class Node {
     }
 }
 
-let head = null;
-let tail = null;
-let len = 0;
-
 const chainMaker = {
-
+    head: null,
+    tail: null,
 
     getLength() {
-        throw new NotImplementedError('Not implemented');
+        //throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
-        return len;
+        let current = this.head;
+        let i = 0;
+        while (current != null) {
+            current = current.next
+            i++;
+        }
+        return i;
     },
     addLink(value = " ") {
-        throw new NotImplementedError('Not implemented');
+        //throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
         let newNode = new Node(value)
 
-        if (!head) {
-            head = newNode
-            tail = head
+        if (!this.head) {
+            this.head = newNode
+            this.tail = this.head
         } else {
-            tail.next = newNode
-            tail = newNode
+            this.tail.next = newNode
+            this.tail = newNode
         }
-        len++
         return this
     },
     removeLink(position) {
-        throw new NotImplementedError('Not implemented');
+        //throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
-        if (typeof position !== 'number' || position < 1 || position > len) throw new Error("You can\'t remove incorrect link!")
+
+        if (typeof position !== 'number' || position < 1|| this.getLength()< position) {
+            this.head = null
+            this.tail = null
+            throw new Error("You can\'t remove incorrect link!")
+        }
         //удаляем первую позицию
         if (position == 1) {
-            let currentHead = head;
-            head = currentHead.next;
-            len--;
-            if (len === 0) {
-                tail = null;
+            let currentHead = this.head;
+            this.head = currentHead.next;
+
+            if (this.getLength() === 0) {
+                this.tail = null;
             }
             return this
         }
-
-        let current = head;
-        let i = 2;
-        let flag = false;
+        let current = this.head;
+        let i = 1;
         while (current != null) {
-            tail = current
-            if (i === position) {
+            if (i + 1 === position) {
                 current.next = current.next.next;
-                len--;
-                flag = true;
-                if (len === 0) {
-                    tail = null;
+                if (this.getLength() === 0) {
+                    this.tail = null;
                 }
-            } else current = current.next
+            }
+            current = current.next
             i++
         }
-        if (!flag) throw new Error("You can\'t remove incorrect link!")
         return this;
     },
     reverseChain() {
-        throw new NotImplementedError('Not implemented');
+        //throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
+        let len = this.getLength();
         if (len === 1) return this
-        let node = head;
-        head = tail;
-        tail = node;
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
         let next;
         let prev = null;
         for (let i = 0; i < len; i++) {
@@ -88,25 +91,24 @@ const chainMaker = {
             node = next;
         }
         return this;
-
     },
     finishChain() {
-        throw new NotImplementedError('Not implemented');
+        //throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
         let plainChain = "";
         //throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
-        let current = head;
+        let current = this.head;
         while (current != null) {
-            plainChain += (current == head ? "" : "~~") + "( " + current.val + " )";
+            plainChain += (current == this.head ? "" : "~~") + "( " + current.val + " )";
             current = current.next
         }
-        delete this
+        this.head = null
+        this.tail = null
         return plainChain;
     }
 
 };
-
 module.exports = {
     chainMaker
 };
