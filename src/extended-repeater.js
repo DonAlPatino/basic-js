@@ -23,17 +23,10 @@ function repeater(str, {repeatTimes, separator = "+",addition="",additionRepeatT
   let newstr = ''
   for (let i=0;i<parseInt(additionRepeatTimes);i++)
     add_str += (i==0?"":additionSeparator)+addition
-  console.log(add_str)
   for (let i=0;i< parseInt(repeatTimes);i++)
     newstr += (i==0?"":separator) + str  + add_str
   return newstr
 }
-const objWithSpecificCoercion = {
-  [Symbol.toPrimitive]: hint => hint !== 'number' ? 'STRING_OR_DEFAULT' : 'NUMBER'
-};
-
-console.log(repeater(objWithSpecificCoercion, { repeatTimes: 2, addition: objWithSpecificCoercion }))
-
 module.exports = {
   repeater
 };
