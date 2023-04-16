@@ -15,11 +15,24 @@ const { NotImplementedError } = require('../extensions/index.js');
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
-function renameFiles(/* names */) {
+function renameFiles(names) {
   throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
-}
+  let mySet = new Set();
+  for (let name of names){
+    if (mySet.has(name)) {
+      let tmp = parseInt(name[name.length-2])
+      if (tmp) name = name + "("+(tmp+1)+")"
+      else name = name + "(1)"
+      mySet.add(name);
+    } else {
+      mySet.add(name);
+    }
 
+  }
+  console.log(mySet)
+}
+//renameFiles(["file", "file", "image", "file(1)", "file"])
 module.exports = {
   renameFiles
 };
