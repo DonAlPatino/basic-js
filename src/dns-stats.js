@@ -23,25 +23,34 @@ const {NotImplementedError} = require('../extensions/index.js');
  *
  */
 function getDNSStats(domains) {
-    throw new NotImplementedError('Not implemented');
+    //throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
     let myMap = new Map();
     for (let fullname of domains) {
-        let tochka = 0;
-        console.log(fullname)
-        while (fullname && tochka>-1) {
-            if (myMap.has(fullname)) {
-                myMap.set(fullname, myMap.get(fullname) + 1);
-            } else {
-                myMap.set(fullname, 1);
+        for (let i = fullname.length; i > 0; i--) {
+            if (fullname[i] == '.') {
+                let tmp = fullname.slice(i+1).split('.').reverse().join('.');
+                if (tmp[0] != '.') tmp = '.'+ tmp
+                console.log(tmp)
+                if (myMap.has(tmp)) {
+                    myMap.set(tmp, myMap.get(tmp) + 1);
+                } else {
+                    myMap.set(tmp, 1);
+                }
             }
-            tochka = fullname.indexOf('.')
-            fullname = fullname.slice(tochka + 1)
+
+        }
+        let tmp = '.'+ (fullname).split('.').reverse().join('.');
+        if (myMap.has(tmp)) {
+            myMap.set(tmp, myMap.get(tmp) + 1);
+        } else {
+            myMap.set(tmp, 1);
         }
     }
-    console.log(myMap)
-    return myMap
+
+    return Object.fromEntries(myMap)
 }
+
 
 module.exports = {
     getDNSStats
