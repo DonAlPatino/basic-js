@@ -8,7 +8,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  * Return an array of names that will be given to the files.
  *
  * @param {Array} names
- * @return {Array}
+ * @return {{[p: string]: any}}
  *
  * @example
  * For input ["file", "file", "image", "file(1)", "file"],
@@ -16,23 +16,26 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function renameFiles(names) {
-  throw new NotImplementedError('Not implemented');
+  //throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
-  let mySet = new Set();
+  let mySet = new Map();
   for (let name of names){
-    if (mySet.has(name)) {
-      let tmp = parseInt(name[name.length-2])
-      if (tmp) name = name + "("+(tmp+1)+")"
-      else name = name + "(1)"
-      mySet.add(name);
-    } else {
-      mySet.add(name);
-    }
-
+    if (!mySet.has(name)) {mySet.set(name, 0); continue}
+    let count=0;
+    let origname=name;
+    while (mySet.has(name)) {
+      count++;
+      let num = count+parseInt(mySet.get(name))
+      let tmp = name + "("+ num +")"
+      name = tmp
+      }
+    let tmp =  origname+ "("+ count +")"
+    mySet.set(tmp,0);
   }
-  console.log(mySet)
+
+  return Array.from(mySet.keys());
 }
-//renameFiles(["file", "file", "image", "file(1)", "file"])
+//renameFiles(['doc', 'doc', 'image', 'doc(1)', 'doc'])
 module.exports = {
   renameFiles
 };
